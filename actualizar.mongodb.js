@@ -8,3 +8,28 @@ db.alumnos.updateMany(
     { inscrito: false },
     { $set: { inscrito: true } }
 )
+
+// agregar el lugar de nacimiento a tu documento
+use("cetis108")
+db.alumnos.findOne({ nombres: "Lilian Estefania" }, { _id: 1 })
+
+// _id: 67eeec6eb45c7b05b22f26e3
+use("cetis108")
+db.alumnos.updateOne(
+    { _id: ObjectId('67eeec6eb45c7b05b22f26e3') },
+    { $set: { lugar_de_nacimiento: "Guasave" } }
+)
+
+use("cetis108")
+db.alumnos.findOne({ _id: ObjectId('67eeec6eb45c7b05b22f26e3') })
+
+// consulta para salvar el matrimonio
+use("cetis108")
+db.alumnos.updateOne(
+    { _id: ObjectId('67eeec6eb45c7b05b22f26e3') },
+    { $set: { segundo_apellido: "Urias" } }
+)
+
+// TODO: agregar a tu registro cada escuela y el promedio de graduación
+// en la que has estudiado hasta el momento.
+// TIP: utiliza objetos y matrices (arrays)
