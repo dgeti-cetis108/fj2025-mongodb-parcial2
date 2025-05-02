@@ -48,4 +48,14 @@ db.cuestionarios.updateOne(
     ]}}
 );
 
-// TODO: registrar respuestas de dos alumnos
+// TODO: terminar de registrar respuestas de dos alumnos
+use("cetis108");
+db.cuestionarios.aggregate([
+    // unwind: separa o extrae los elementos de un array
+    { $unwind: "$preguntas" },
+    // obtener 2 de las 3 preguntas de forma aleatoria
+    // sample: toma una muestra aleatoria del tamaño determinado
+    { $sample: { size: 2 } },
+    { $group: { _id:1, preguntas: { $push: "$preguntas" } } },
+    { $project: { _id: 0, preguntas: 1 }}
+]);
