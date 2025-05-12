@@ -50,7 +50,7 @@ db.cuestionarios.updateOne(
 
 // TODO: terminar de registrar respuestas de dos alumnos
 use("cetis108");
-db.cuestionarios.aggregate([
+let preguntas_ = db.cuestionarios.aggregate([
     // unwind: separa o extrae los elementos de un array
     { $unwind: "$preguntas" },
     // obtener 2 de las 3 preguntas de forma aleatoria
@@ -59,3 +59,17 @@ db.cuestionarios.aggregate([
     { $group: { _id:1, preguntas: { $push: "$preguntas" } } },
     { $project: { _id: 0, preguntas: 1 }}
 ]);
+
+db.cuestionarios.updateOne(
+    { _id: ObjectId("68128caeaa595e21d5f7c9f4") },
+    {
+        $set: {
+            evaluaciones: [{
+                alumno: "Manuel Gaxiola",
+                grupo: "4BPR",
+                preguntas: preguntas_.toArray()
+            }]
+        }
+    }
+);
+
