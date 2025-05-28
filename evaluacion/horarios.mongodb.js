@@ -19,3 +19,52 @@ Requerimientos:
 
 4. Utiliza horarios oficiales de la escuela y guarda todo en una colección "horarios" dentro de la base de datos "cetis108".
 */
+
+use('cetis108');
+db.createCollection('horarios');
+
+// dos documentos, uno por cada grupo
+db.horarios.insertOne(
+    {
+        grupo: '4BPR',
+        periodo: '2024-2',
+        horarios: []
+    }
+);
+
+db.horarios.updateOne(
+    { $and: [ { grupo: '4BPR' }, { periodo: '2024-2' } ] },
+    {
+        $push: {
+            horarios: {
+                dia: 'Lunes',
+                clases: [
+                    {
+                        asignatura: 'Conciencia histórica I',
+                        profesor: 'Lauro',
+                        aula: 'A8',
+                        inicia: '07:00',
+                        finaliza: '07:50'
+                    },
+                    {
+                        asignatura: 'Base de datos NoSQL',
+                        profesor: 'Bidkar',
+                        aula: 'TP2',
+                        inicia: '07:50',
+                        finaliza: '08:40'
+                    }
+                ]
+            }
+        }
+    }
+);
+
+
+
+
+
+
+db.horarios.find().count();
+
+use('cetis108');
+db.horarios.find();
